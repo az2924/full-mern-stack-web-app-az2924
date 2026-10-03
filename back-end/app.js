@@ -11,6 +11,7 @@ app.use(cors()) // allow cross-origin resource sharing
 // use express's builtin body-parser middleware to parse any data included in a request
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+app.use('/static', express.static(`${__dirname}/public`)) // serves the photo as static file
 
 // connect to database
 mongoose
@@ -78,5 +79,17 @@ app.post('/messages/save', async (req, res) => {
   }
 })
 
+app.get('/about', (req, res) => {
+  res.json({
+    name: 'Alisha Zaman',
+    paragraphs: [
+      'I am a senior at New York University, specifically at the Polytechnic School of Engineering. I am a Computer Science major. While I have completed most of my core computer science courses, I am currently taking computer science electives, such as Agile Software Development and DevOps.',
+      'The past three summers, I have been a Software Engineering Intern at Amazon. Specifically, I have interned at Prime Air, which is its drone delivery service. Most of my projects have been fullstack, which gave me a great taste of both frontend and backend development.',
+      'I look forward to diving straight into full-time Software Engineering roles after I graduate in May of 2027. Currently, I do not have a specific interest in a niche field. However, I am always exploring.',
+    ],
+    imageUrl: `${req.protocol}://${req.get('host')}/static/me.jpg`,
+    status: 'all good',
+  })
+})
 // export the express app we created to make it available to other modules
 module.exports = app // CommonJS export style!
