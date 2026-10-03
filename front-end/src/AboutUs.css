@@ -1,0 +1,9 @@
+.AboutUs-photo {
+    max-width: 300px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.AboutUs-error {
+    color: red;
+}
